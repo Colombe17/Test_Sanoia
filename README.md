@@ -11,7 +11,7 @@ L'application est accessible ici: https://testsanoia-58sngdxrtvbxfflvxvqkuh.stre
 
 **2. Téléchargement les fichiers**
 
-Les fichiers à utiliser ont été téléchargéshttps sur ce site: https://www.data.gouv.fr/fr/datasets/open-medic-base-complete-sur-les-depenses-de-medicaments-interregimes/
+Les fichiers utilisés ont été téléchargés sur ce site: https://www.data.gouv.fr/fr/datasets/open-medic-base-complete-sur-les-depenses-de-medicaments-interregimes/
 
 Les trois fichiers téléchargés sont les suivants:
 * NB_2024_cip13_age_sexe_reg_spe.CSV
