@@ -1,5 +1,4 @@
 
-
 #Installation des dépendances
 import sqlite3
 import pandas as pd
@@ -55,12 +54,16 @@ if uploaded_file_2024 or uploaded_file_2023 or uploaded_file_2022:
     st.subheader("Nombre total de HUMIRA consommé")
     st.write(resultat_1)
 
-    #Graphique 1
-    st.subheader("Graphique - Nombre de HUMIRA consommé en total")
-    fig, ax = plt.subplots()
-    resultat_1.plot(x='Annee', y='Nb_medicament', kind='bar', ax=ax)
-    ax.set_title=('Nombre de HUMIRA consommé en total')
-    st.pyplot(fig)
+    if uploaded_file_2024 and uploaded_file_2023 and uploaded_file_2022:
+
+        #Graphique 1
+        st.subheader("Graphique - Nombre de HUMIRA consommé en total")
+        fig, ax = plt.subplots()
+        resultat_1.plot(x='Annee', y='Nb_medicament', kind='bar', ax=ax)
+        ax.set_title=('Nombre de HUMIRA consommé en total')
+        st.pyplot(fig)
+    else:
+        pass
 
     #Query_2: Nombre de HUMIRA consommé par dispositif d'injection
     Query_2 = """
@@ -76,12 +79,16 @@ if uploaded_file_2024 or uploaded_file_2023 or uploaded_file_2022:
     st.subheader("Nombre de HUMIRA consommé par dispositif d'injection")
     st.write(resultat_2)
 
-    #Graphique 2
-    st.subheader("Graphique - Nombre de HUMIRA consommé par dispositif d'injection")
-    fig, ax = plt.subplots()
-    resultat_2.plot(x='Annee', y=['Nb_Humira_par_seringue', 'Nb_Humira_par_stylo'], kind='bar', ax=ax)
-    ax.set_title=('Nombre de HUMIRA consommé par dispositif d\'injection')
-    st.pyplot(fig)
+    if uploaded_file_2024 and uploaded_file_2023 and uploaded_file_2022:
+
+        #Graphique 2
+        st.subheader("Graphique - Nombre de HUMIRA consommé par dispositif d'injection")
+        fig, ax = plt.subplots()
+        resultat_2.plot(x='Annee', y=['Nb_Humira_par_seringue', 'Nb_Humira_par_stylo'], kind='bar', ax=ax)
+        ax.set_title=('Nombre de HUMIRA consommé par dispositif d\'injection')
+        st.pyplot(fig)
+    else:
+        pass
 
     #Query_3: Nombre de HUMIRA consommé par tranche d'age
     Query_3 = """
@@ -96,12 +103,16 @@ if uploaded_file_2024 or uploaded_file_2023 or uploaded_file_2022:
     st.subheader("Nombre de HUMIRA consommé par tranche d'age")
     st.write(resultat_3_pivot)
 
-    #Graphique 3
-    st.subheader("Graphique - Nombre de HUMIRA consommé par tranche d'age")
-    fig, ax = plt.subplots()
-    resultat_3_pivot.T.plot(kind='bar', ax=ax)
-    ax.set_title=('Nombre de HUMIRA consommé par tranche d\'age')
-    st.pyplot(fig)
+    if uploaded_file_2024 and uploaded_file_2023 and uploaded_file_2022:
+
+        #Graphique 3
+        st.subheader("Graphique - Nombre de HUMIRA consommé par tranche d'age")
+        fig, ax = plt.subplots()
+        resultat_3_pivot.T.plot(kind='bar', ax=ax)
+        ax.set_title=('Nombre de HUMIRA consommé par tranche d\'age')
+        st.pyplot(fig)
+    else:
+        pass
 
     #Query_4: Nombre de HUMIRA consommé par région
     Query_4 = """
@@ -149,3 +160,4 @@ if uploaded_file_2024 or uploaded_file_2023 or uploaded_file_2022:
     st.write(resultat_6_pivot)
 else:
     st.warning("Veuillez importer au moins un fichier CSV")
+
