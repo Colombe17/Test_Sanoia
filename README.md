@@ -17,12 +17,14 @@ Les trois fichiers téléchargés sont les suivants:
 * NB_2024_cip13_age_sexe_reg_spe.CSV
 * NB_2023_cip13_age_sexe_reg_spe.CSV
 * NB_2022_cip13_age_sexe_reg_spe.CSV
+
 Afin de charger ces fichiers dans l'application un renommage des noms de fichier a été nécessaire. Ci-après le renommage effectué pour les fichiers:
 * NB_2024.csv
 * NB_2023.csv
 * NB_2022.csv
 
 **3. Fonctionnalités pricipales**
+
 * Chargement des fichiers CSV pour les années 2024, 2023, 2022
 * Affichage des analyses sous forme de tableaux et/ou de graphiques interactifs
 * Requêtes SQL pour la consommation d'HUMIRA
@@ -34,18 +36,19 @@ Afin de charger ces fichiers dans l'application un renommage des noms de fichier
 	* Le tout combiné
 
 **4. Données attendues**
+
 Les fichiers doivent être les fichiers renommés encodés en Latin-1 avec les colonnes tel que l_cip13, age, BEN_REG, PSP_SPE.
 
 **5. Lancement de l'application en local**
 
-# a. Cloner le dépôt
+*a. Cloner le dépôt*
 
 ```bash
 git clone https://github.com/Colombe17/Test_Sanoia.git
 cd Test_Sanoia/src
 ```
 
-# b. Créer et activer un environnement virtuel
+*b. Créer et activer un environnement virtuel*
 
 ```bash
 python3 -m venv .venv
@@ -53,7 +56,7 @@ source .venv/bin/activate # Sur macOS/Linue
 .venv\Scripts\activate # Sur Windows
 ```
 
-# c. Installer les dépendances
+*c. Installer les dépendances*
 ```bash
 pip install -r requirement.txt
 ```
@@ -64,7 +67,7 @@ Si requirement.txt ne fonctionne pas il faudrait installer les dépendances manu
 pip install streamlit pandas matplotlib
 ```
 
-# d. Lancer l'application Streamlit
+*d. Lancer l'application Streamlit*
 
 ```bash
 streamlit run test_sanoia_app.py
