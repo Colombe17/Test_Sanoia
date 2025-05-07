@@ -44,7 +44,7 @@ if uploaded_file_2024 or uploaded_file_2023 or uploaded_file_2022:
     #Query_1: Nombre de HUMIRA consommé en total
 
     Query_1 = """
-    SELECT Annee, COUNT(l_cip13) as Nb_medicament
+    SELECT Annee, SUM(nbc) as Nb_consommants
     FROM fichier_total
     WHERE l_cip13 like ?
     group by Annee
@@ -59,7 +59,7 @@ if uploaded_file_2024 or uploaded_file_2023 or uploaded_file_2022:
         #Graphique 1
         st.subheader("Graphique - Nombre de HUMIRA consommé en total")
         fig, ax = plt.subplots()
-        resultat_1.plot(x='Annee', y='Nb_medicament', kind='bar', ax=ax)
+        resultat_1.plot(x='Annee', y='Nb_consommants', kind='bar', ax=ax)
         ax.set_title=('Nombre de HUMIRA consommé en total')
         st.pyplot(fig)
     else:
@@ -68,8 +68,8 @@ if uploaded_file_2024 or uploaded_file_2023 or uploaded_file_2022:
     #Query_2: Nombre de HUMIRA consommé par dispositif d'injection
     Query_2 = """
     SELECT Annee,
-        SUM(CASE WHEN l_cip13 LIKE 'HUMIRA%SER%' THEN 1 ELSE 0 END) as Nb_Humira_par_seringue,
-        SUM(CASE WHEN l_cip13 LIKE 'HUMIRA%STYLO%' THEN 1 ELSE 0 END) as Nb_Humira_par_stylo
+        SUM(CASE WHEN l_cip13 LIKE 'HUMIRA%SER%' THEN nbc ELSE 0 END) as Nb_Humira_par_seringue,
+        SUM(CASE WHEN l_cip13 LIKE 'HUMIRA%STYLO%' THEN nbc ELSE 0 END) as Nb_Humira_par_stylo
     FROM fichier_total
     WHERE l_cip13 LIKE 'HUMIRA%'
     group by Annee
@@ -92,14 +92,14 @@ if uploaded_file_2024 or uploaded_file_2023 or uploaded_file_2022:
 
     #Query_3: Nombre de HUMIRA consommé par tranche d'age
     Query_3 = """
-    SELECT Annee, age as Age, COUNT(l_cip13) as Nb_medicament
+    SELECT Annee, age as Age, SUM(nbc) as Nb_consommants
     FROM fichier_total
     WHERE l_cip13 like ?
     group by Annee, age
     ORDER BY Annee desc, age asc
     """
     resultat_3 = pd.read_sql_query(Query_3, base_total, params=['HUMIRA%'])
-    resultat_3_pivot = resultat_3.pivot(index='Age', columns='Annee', values='Nb_medicament')
+    resultat_3_pivot = resultat_3.pivot(index='Age', columns='Annee', values='Nb_consommants')
     st.subheader("Nombre de HUMIRA consommé par tranche d'age")
     st.write(resultat_3_pivot)
 
@@ -116,7 +116,7 @@ if uploaded_file_2024 or uploaded_file_2023 or uploaded_file_2022:
 
     #Query_4: Nombre de HUMIRA consommé par région
     Query_4 = """
-    SELECT Annee, BEN_REG as Region, COUNT(l_cip13) as Nb_medicament
+    SELECT Annee, BEN_REG as Region, SUM(nbc) as Nb_consommants
     FROM fichier_total
     WHERE l_cip13 like ?
     group by Annee, BEN_REG
@@ -124,20 +124,20 @@ if uploaded_file_2024 or uploaded_file_2023 or uploaded_file_2022:
     """
     resultat_4 = pd.read_sql_query(Query_4, base_total, params=['HUMIRA%'])
 
-    resultat_4_pivot = resultat_4.pivot(index='Region', columns='Annee', values='Nb_medicament')
+    resultat_4_pivot = resultat_4.pivot(index='Region', columns='Annee', values='Nb_consommants')
     st.subheader("Nombre de HUMIRA consommé par région")
     st.write(resultat_4_pivot)
 
     #Query_5: Nombre de HUMIRA consommé par prescripteur
     Query_5 = """
-    SELECT Annee, PSP_SPE as Prescripteur, COUNT(l_cip13) as Nb_medicament
+    SELECT Annee, PSP_SPE as Prescripteur, SUM(nbc) as Nb_consommants
     FROM fichier_total
     WHERE l_cip13 like ?
     group by Annee, PSP_SPE
     ORDER BY Annee desc, PSP_SPE asc
     """
     resultat_5 = pd.read_sql_query(Query_5, base_total, params=['HUMIRA%'])
-    resultat_5_pivot = resultat_5.pivot(index='Prescripteur', columns='Annee', values='Nb_medicament')
+    resultat_5_pivot = resultat_5.pivot(index='Prescripteur', columns='Annee', values='Nb_consommants')
     st.subheader("Nombre de HUMIRA consommé par prescripteur")
     st.write(resultat_5_pivot)
 
@@ -147,8 +147,8 @@ if uploaded_file_2024 or uploaded_file_2023 or uploaded_file_2022:
         age as Age,
         BEN_REG as Region,
         PSP_SPE as Prescripteur,
-        SUM(CASE WHEN l_cip13 LIKE 'HUMIRA%SER%' THEN 1 ELSE 0 END) as Nb_Humira_par_seringue,
-        SUM(CASE WHEN l_cip13 LIKE 'HUMIRA%STYLO%' THEN 1 ELSE 0 END) as Nb_Humira_par_stylo
+        SUM(CASE WHEN l_cip13 LIKE 'HUMIRA%SER%' THEN nbc ELSE 0 END) as Nb_Humira_par_seringue,
+        SUM(CASE WHEN l_cip13 LIKE 'HUMIRA%STYLO%' THEN nbc ELSE 0 END) as Nb_Humira_par_stylo
     FROM fichier_total
     WHERE l_cip13 like ?
     GROUP BY Annee, age, BEN_REG, PSP_SPE
